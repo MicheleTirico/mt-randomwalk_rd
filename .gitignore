@@ -6,3 +6,5 @@ build/
 CopyLibs/
 nblibraries.properties
 
+/rd-net/target/
+/rd-net/dist/
