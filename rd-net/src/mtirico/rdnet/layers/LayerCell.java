@@ -9,23 +9,23 @@ import mtirico.rdnet.framework.Framework;
 
 public class LayerCell extends Framework {
 
-	private String id;
-	private Cell[][] cells;
-        private int[] size ;
-	private static float f ,  k ,  Da,  Db ;
-	private static float[][] kernel ;
+    private String id;
+    private Cell[][] cells;
+    private int[] size ;
+    private static float f ,  k ,  Da,  Db ;
+    private static float[][] kernel ;
 
-  public LayerCell (String id, int[] size ) {
-    this.id = id;
-    this.size = size ;
-		cells = new Cell[size[0]][size[1]];
-  }
+    public LayerCell (String id, int[] size ) {
+      this.id = id;
+      this.size = size ;
+      cells = new Cell[size[0]][size[1]];
+    }
 
-	public LayerCell (String id, int[] size, float[][] grid ) {
-    this.id = id;
-    this.size = size ;
-		cells = new Cell[size[0]][size[1]];
-		initGrid(grid);
+    public LayerCell (String id, int[] size, float[][] grid ) {
+        this.id = id;
+        this.size = size ;
+	cells = new Cell[size[0]][size[1]];
+	initGrid(grid);
   }
 
 // init
@@ -140,43 +140,6 @@ public class LayerCell extends Framework {
 
 // RD
 // --------------------------------------------------------------------------------------------------------------------------------------
-// does not work, try to make a toroid
-/**	public void updateLayer (  ) {
-		for ( int x = 0 ; x < size[0] ; x++) {
-			for ( int y = 0 ; y < size[1] ; y++) {
-				Cell c = cells[x][y] ;
-				float[] vals = c.getAB();
-				float	val0 = vals[0], val1 = vals[1];
-				float [] diff  = getDiffusion(c) ;
-				float diff0 = Da * diff[0],
-						diff1 = Db * diff[1] ,
-						react = val0 * val1 * val1 ,
-						extA = f * ( 1 - val0 ) ,
-						extB = ( f + k ) * val1 ;
-				float	newval0 =  val0 + diff0 - react + extA,
-						newval1 =  val1 + diff1 + react - extB;
-				float [] newVals = new float[] { newval0 ,newval1 } ;
-				c.setAB(newVals);
-			}
-		}
-	}
-	private float[] getDiffusion (  Cell c  ) {
-		int r = 1;
-		int[] posCore = c.getPos();
-		float sumA = 0.0f , sumB = 0.0f ;
-		for ( int x = -1 ; x <= 1 ;x++) {
-			for ( int y = -1 ; y <= 1 ;y ++) {
-				int px = c.getPos()[0]  , py = c.getPos()[1]  ;	//System.out.println(px + " " + py);
-				int setx = px % size[0], sety = py % size[1];		//	System.out.println(setx + " " + sety);
-				int posKx = x +1 , posKy = y +1 ;			//		System.out.println(posKx + " " + posKy);
-				sumA = sumA + kernel[posKx][posKy] * cells[setx][sety].getAB()[0];
-				sumB = sumB + kernel[posKx][posKy] * cells[setx][sety].getAB()[1];
-			}
-		}
-		return new float[] { sumA , sumB };
-	}
-**/
-
 	public void updateLayer (  ) {
 		for ( int x = 0 ; x < size[0] ; x++) {
 			for ( int y = 0 ; y < size[1] ; y++) {
@@ -210,15 +173,27 @@ public class LayerCell extends Framework {
 		}
 		return new float[] { sumA , sumB };
 	}
+    public void storeGridCsv (String path ) {
+        for ( int x = 0 ; x < size[0] ; x++) {
+            String lineA ; //= Integer.toString(x)+","+Integer.toString(y)+","+Float.toString(vals[0])+","+Float.toString(vals[1]);
+            for ( int y = 0 ; y < size[1] ; y++) {
+                Cell c = cells[x][y] ;
+                float[] vals = c.getAB();
+      //          lineA+=vals[0];
+               // String line = Integer.toString(x)+","+Integer.toString(y)+","+Float.toString(vals[0])+","+Float.toString(vals[1]);
+                
+            }
+        }
+    }
 
 // GET METHODS
 // --------------------------------------------------------------------------------------------------------------------------------------
-  public String getId () { return id; }
-  public int[] getSize () { return size; }
-	public Cell[][] getCells () { return cells; }
-	public Cell getCell (int[] pos) { return cells[pos[0]][pos[1]]; }
-	public Cell getCell (int x, int y ) { return cells[x][y]; }
-public static void main (String[] args ){System.err.println(new Object(){}.getClass().getName());;}
+    public String getId () { return id; }
+    public int[] getSize () { return size; }
+    public Cell[][] getCells () { return cells; }
+    public Cell getCell (int[] pos) { return cells[pos[0]][pos[1]]; }
+    public Cell getCell (int x, int y ) { return cells[x][y]; }
+//    public static void main (String[] args ){System.err.println(new Object(){}.getClass().getName());;}
 
 
 }

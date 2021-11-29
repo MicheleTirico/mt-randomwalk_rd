@@ -1,29 +1,29 @@
 package mtirico.rdnet.layers;
 
 public class Cell {
-	private int id;
-	private float val ;
-	private int[] pos = new int[2] ; // the position in the grid
-	private float[] AB = new float[2] ; // a set of values
-	private Vector vector ; // the sum of vectors
+    private int id;
+    private float val ;
+    private int[] pos = new int[2] ; // the position in the grid
+    private float[] AB = new float[2] ; // a set of values
+    private Vector vector ; // the sum of vectors
 
-	public Cell(int id , int[] pos , float[] AB ) {
-		this.id = id ;
-    this.pos = pos;
-    this.AB = AB ;
-	}
+    public Cell(int id , int[] pos , float[] AB ) {
+        this.id = id ;
+        this.pos = pos;
+        this.AB = AB ;
+    }
 
-	public Cell(int id , int[] pos , Vector vector ) {
-		this.id = id ;
-    this.pos = pos;
-    this.vector = vector ;
-	}
+    public Cell(int id , int[] pos , Vector vector ) {
+        this.id = id ;
+        this.pos = pos;
+        this.vector = vector ;
+    }
 
-	public Cell(int id , int[] pos , float val ) {
-		this.id = id ;
-		this.pos = pos;
-		this.val = val ;
-	}
+    public Cell(int id , int[] pos , float val ) {
+        this.id = id ;
+        this.pos = pos;
+        this.val = val ;
+    }
 
 
 public int[] getPos () { return pos;}

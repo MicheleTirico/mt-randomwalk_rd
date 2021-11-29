@@ -10,22 +10,17 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Map;
-import mtirico.graphtools.simplifyNetwork.Simplifier;
-import mtirico.rdnet.framework.Framework;
-
-import mtirico.rdnet.framework.Framework.*;
-import mtirico.rdnet.framework.Utils;
-import mtirico.rdnet.framework.VizLayerCell;
-import mtirico.rdnet.layers.LayerCell;
-import mtirico.rdnet.layers.LayerNet;
-import mtirico.rdnet.layers.LayerSeed;
-import mtirico.rdnet.layers.LayerVector;
-import mtirico.rdnet.layers.MultiLayerVector;
-import mtirico.tools.generictools.StoreInfo;
-import mtirico.tools.handleFile.HandleFolder;
 import org.graphstream.algorithm.Toolkit;
 import org.graphstream.graph.Graph;
 import org.graphstream.stream.file.FileSinkDGS;
+
+import mtirico.graphtools.simplifyNetwork.Simplifier;
+import mtirico.rdnet.framework.Framework;
+import mtirico.rdnet.framework.Utils;
+import mtirico.rdnet.framework.VizLayerCell;
+import mtirico.rdnet.layers.*;
+import mtirico.tools.generictools.StoreInfo;
+import mtirico.tools.handleFile.HandleFolder;
 
 /**
  *
@@ -85,22 +80,24 @@ public class ExploreFk extends Framework {
     }   
     
     public static void run (double p1, double p2 ) throws IOException {        
-        if (outputTerminal) System.out.println("start sim at " + new Date().toString() );
         if (feed < 0) p1 = Double.parseDouble(params.get(p1_name)) ;
         if (kill < 0) p2 = Double.parseDouble(params.get(p2_name)) ;
       
+        if (outputTerminal) System.out.println("start sim at " + new Date().toString() );
+       
+        // layer lc
         lc = new LayerCell("LayerCell", size);
         lc.initCells(new float[] {1.0f , 0.0f});
         lc.initPerturb(new int[] {(int) size[0]/2,(int) size[1]/2},new float[] {1.0f , 0.5f},1);
         lc.setGsParameters((float) feed , (float) kill, (float) Da, (float) Db, kernel);
 
-        // lv RD
+        // layer RD
         lvRD = new LayerVector ("lcrd", size , posMorpVec );
         lvRD.setLc (lc);
         lvRD.setKernel(kernel);
         lvRD.setParamsNormVfRd(true,new float[] {0f,.1f});
 
-        // lv 1
+        // layer vf
         lcVfStat = new LayerCell("LayerStat", size);  // todo -> methods to create orography
         lvStat = new LayerVector("lvStat0", size);
         lvStat.initStatic(new float[] {-.00f,.00f}); // test a static vf, each v are similar

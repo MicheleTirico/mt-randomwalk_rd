@@ -5,6 +5,7 @@ nbproject/
 build/
 CopyLibs/
 nblibraries.properties
+*dgs
 
-/rd-net/target/
-/rd-net/dist/
+/target/
+/dist/
